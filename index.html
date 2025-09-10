@@ -201,7 +201,7 @@
       <div class="toggle"></div>
     </header>
 
-    <video src="smallheader.mp4" loop autoplay playsinline></video>
+    <video src="smallheader.mp4" loop autoplay playsinline muted></video>
     <div class="overlay"></div>
     <div class="text">
       <h2>Diving In</h2>
@@ -258,6 +258,32 @@
   // Always call play() to ensure autoplay starts (some browsers require it)
   bgVideo.play().catch((e) => {
     console.warn("Video autoplay failed:", e);
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const video = document.getElementById("bg-video");
+
+    // Mobile detection
+    const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+      video.muted = false; // allow audio on desktop
+      video.volume = 1.0;
+    }
+
+    // Wait for the video to be ready to play
+    video.addEventListener('canplaythrough', () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Autoplay started!
+        }).catch((error) => {
+          console.warn("Autoplay failed:", error);
+        });
+      }
+    });
   });
 </script>
 
