@@ -201,7 +201,7 @@
       <div class="toggle"></div>
     </header>
 
-    <video src="smallheader.mp4" loop autoplay></video>
+    <video src="smallheader.mp4" loop autoplay playsinline></video>
     <div class="overlay"></div>
     <div class="text">
       <h2>Diving In</h2>
@@ -241,6 +241,26 @@
       });
     });
   </script>
+
+  <script>
+  const bgVideo = document.getElementById('bg-video');
+
+  // Basic mobile detection
+  const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    bgVideo.muted = true;
+  } else {
+    bgVideo.muted = false;
+    bgVideo.volume = 1.0; // optional: ensure volume is up on desktop
+  }
+
+  // Always call play() to ensure autoplay starts (some browsers require it)
+  bgVideo.play().catch((e) => {
+    console.warn("Video autoplay failed:", e);
+  });
+</script>
+
 
 </body>
 </html>
