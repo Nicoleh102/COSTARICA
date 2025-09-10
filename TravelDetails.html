@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel | Nicole + Jeremy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+    }
+
+ .showcase {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('Costarica1.webp') center center/cover no-repeat;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.showcase .text {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+}
+
+
+    .showcase::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .showcase header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 100px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 1.5em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .logo a {
+  color: inherit;
+  text-decoration: none;
+}
+
+    .toggle {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background: url('white menu.png') no-repeat center center / cover;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .toggle.active {
+      background: url('white close.png') no-repeat center center / cover;
+    }
+
+    .showcase .text h2 {
+      font-size: 3em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .showcase .text p {
+      font-size: 1.2em;
+      font-weight: 300;
+      margin-top: 10px;
+    }
+
+    /* Menu Styling (matches homepage) */
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #fff;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: right 0.4s ease;
+    }
+
+    .menu.active {
+      right: 0;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    .menu ul li a {
+      display: block;
+      padding: 15px;
+      font-size: 1.2em;
+      color: #111;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .menu ul li a:hover {
+      color: #999;
+    }
+
+    /* Venue Info Section */
+    .venue-info {
+      background-color: #f9f9f9;
+      padding: 60px 20px;
+    }
+
+    .info-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto 60px auto;
+    }
+
+    .info-block.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .info-text {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .info-text h3 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+
+    .info-text p,
+    .info-text ul {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    .info-text ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+
+    .info-text a {
+      text-decoration: none;
+      color: #ffc067;
+    }
+
+    .info-img {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .info-img img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .showcase header {
+        padding: 20px 30px;
+      }
+
+      .showcase .text h2 {
+        font-size: 2em;
+      }
+
+      .showcase .text p {
+        font-size: 1em;
+      }
+
+      .info-block,
+      .info-block.reverse {
+        flex-direction: column;
+      }
+
+      .info-img,
+      .info-text {
+        padding: 10px;
+      }
+    }
+    .scroll-down-arrow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: translateX(-50%) rotate(-45deg);
+  animation: bounce 2s infinite;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Animation for bounce */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) rotate(-45deg) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) rotate(-45deg) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) rotate(-45deg) translateY(-5px);
+  }
+}
+
+/* Class to hide the arrow */
+.scroll-down-arrow.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Header / Showcase -->
+<section class="showcase">
+  <header>
+    <h2 class="logo"><a href="index.html">Nicole + Jeremy</a></h2>
+    <div class="toggle"></div>
+  </header>
+  <div class="text">
+    <h2>Travel</h2>
+    <p>How to get here and where to stay</p>
+  </div>
+  <div class="scroll-down-arrow"></div>
+
+</section>
+
+<!-- Slide-out Menu -->
+<div class="menu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="RSVP.html">RSVP</a></li>
+    <li><a href="TravelDetails.html">Travel Details</a></li>
+    <li><a href="venue.html">Wedding Details</a></li>
+    <li><a href="CostaRica.html">Costa Rica</a></li>
+  </ul>
+</div>
+
+<!-- Venue Info Section -->
+<section class="venue-info">
+  <div class="info-block fade-in">
+    <div class="info-text">
+      <h3>Flights</h3>
+      <p>If heading straight to the ceremony, please ensure you fly into <strong>Liberia, Costa Rica.</strong> Ideally, we'd love to have you there from <strong>Thursday, May 21 to Monday, May 25.</strong></p>
+    </div>
+    <div class="info-img">
+      <img src="airport.jpeg" alt="Venue location photo">
+    </div>
+  </div>
+
+  <div class="info-block reverse fade-in">
+    <div class="info-text">
+      <h3>Shuttles</h3>
+      <p>Onda is about an hour drive from the Liberia airport. We will have shuttles scheduled throughout <strong>Thursday</strong> and <strong>Monday</strong> to get people to and from the airport. Please include your flight information when you RSVP so we can plan accordingly. </p>
+    </div>
+    <div class="info-img">
+      <img src="map.png" alt="Beach dress code">
+    </div>
+  </div>
+
+  <div class="info-block fade-in">
+    <div class="info-text">
+      <h3>Stays</h3>
+      <p>There are many great places to stay in Playa Grande. In addition to <strong>AirBnB</strong>, consider the following options:</p>
+      <ul>
+        <li>Boutique Surf Hotel <a href="https://ripjackinn.com" target="_blank">RipJack Inn</a></li>
+        <li><a href="https://www.villaskalei.com" target="_blank">Villas Kalei</a> - Four available</li>
+        <li>Up for a bit of a walk? Try out <a href="https://palmbeachinncostarica.com" target="_blank">Palm Beach Inn</a></li>
+      </ul>
+      <p>Important note - <strong>avoid Tamarindo</strong>. It looks nearby, but is decievingly far.</p>
+    </div>
+    <div class="info-img">
+      <img src="jackinn.jpeg" alt="Onda bar photo">
+    </div>
+  </div>
+</section>
+
+<!-- Scripts -->
+<script>
+  const menuToggle = document.querySelector('.toggle');
+  const menu = document.querySelector('.menu');
+  const showcase = document.querySelector('.showcase');
+  const links = document.querySelectorAll('.menu a');
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    menu.classList.toggle('active');
+    showcase.classList.toggle('active');
+  });
+
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      menu.classList.remove('active');
+      showcase.classList.remove('active');
+    });
+  });
+
+  // Fade-in on scroll
+  window.onload = function () {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  };
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const arrow = document.querySelector('.scroll-down-arrow');
+    const venueSection = document.querySelector('.venue-info');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          arrow.classList.add('hide');
+        } else {
+          arrow.classList.remove('hide');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    if (venueSection) {
+      observer.observe(venueSection);
+    }
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Costa Rica | Nicole + Jeremy</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+    }
+
+    .showcase {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .overlay-blur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 3;
+    }
+
+    .slide-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      color: #fff;
+      text-align: center;
+    }
+
+    .slide-text h2 {
+      font-size: 3em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .slide-text p {
+      font-size: 1.2em;
+      font-weight: 300;
+      margin-top: 10px;
+    }
+
+    .showcase header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 100px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+     .logo {
+      color: #fff;
+      font-size: 1.5em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .logo a {
+  color: inherit;
+  text-decoration: none;
+}
+
+    .toggle {
+      width: 40px;
+      height: 40px;
+      background: url('white menu.png') no-repeat center center / cover;
+      cursor: pointer;
+    }
+
+    .toggle.active {
+      background: url('white close.png') no-repeat center center / cover;
+    }
+
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 6;
+      background: rgba(255,255,255,0.5);
+      border: none;
+      padding: 10px;
+      font-size: 2em;
+      color: #333;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .arrow-btn:hover {
+      background: rgba(255,255,255,0.8);
+    }
+
+    .arrow-left {
+      left: 20px;
+    }
+
+    .arrow-right {
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .slide-text h2 {
+        font-size: 2em;
+      }
+
+      .slide-text p {
+        font-size: 1em;
+      }
+
+      .showcase header {
+        padding: 20px 30px;
+      }
+    }
+    body {
+  overflow: hidden;
+}
+
+.slide-text a {
+    color: #ffc067;
+  text-decoration: none;
+}
+
+  </style>
+</head>
+<body>
+
+<section class="showcase">
+  <header>
+    <h2 class="logo"><a href="index.html">Nicole + Jeremy</a></h2>
+    <div class="toggle"></div>
+  </header>
+
+  <div class="menu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="RSVP.html">RSVP</a></li>
+    <li><a href="TravelDetails.html">Travel Details</a></li>
+    <li><a href="venue.html">Wedding Details</a></li>
+    <li><a href="CostaRica.html">Costa Rica</a></li>
+  </ul>
+</div>
+
+  <!-- Carousel Slides -->
+  <div class="carousel-slide active" style="background-image: url('Costarica2.jpeg');">
+    <div class="slide-text">
+      <h2>Things to Do</h2>
+      <p>Check out <a href="https://www.stayonda.com/tours-activities/" target="_blank">Onda's</a> Tours & Activities page to book excursions</p>
+    </div>
+    <div class="overlay-blur"></div>
+  </div>
+
+  <div class="carousel-slide" style="background-image: url('costarica3.jpeg');">
+    <div class="slide-text">
+      <h2>Explore More</h2>
+      <p>Want more Costa Rica? Check out the <a href="https://www.travelandleisure.com/costa-rica-rainforest-guide-7975480" target="_blank">these</a> destinations </p>
+    </div>
+    <div class="overlay-blur"></div>
+  </div>
+
+  <div class="carousel-slide" style="background-image: url('costarica4.jpeg');">
+    <div class="slide-text">
+      <h2>Good Eats</h2>
+      <p>What you can expect from Costa Rican <a href="https://www.bodhisurfyoga.com/costa-rican-food" target="_blank">cuisine</a></p>
+    </div>
+    <div class="overlay-blur"></div>
+  </div>
+
+  <div class="arrow-btn arrow-left">&#10094;</div>
+  <div class="arrow-btn arrow-right">&#10095;</div>
+</section>
+
+
+<!-- JS for Carousel -->
+<script>
+  const slides = document.querySelectorAll('.carousel-slide');
+  const next = document.querySelector('.arrow-right');
+  const prev = document.querySelector('.arrow-left');
+  let current = 0;
+  let autoAdvanceTimeout;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }
+
+  function prevSlide() {
+    current = (current - 1 + slides.length) % slides.length;
+    showSlide(current);
+  }
+
+  function startAutoAdvance() {
+    clearTimeout(autoAdvanceTimeout); // Reset timer
+    autoAdvanceTimeout = setTimeout(() => {
+      nextSlide();
+      startAutoAdvance(); // Schedule next advance
+    }, 10000); // 10 seconds
+  }
+
+  next.addEventListener('click', () => {
+    nextSlide();
+    startAutoAdvance(); // Restart auto-advance
+  });
+
+  prev.addEventListener('click', () => {
+    prevSlide();
+    startAutoAdvance(); // Restart auto-advance
+  });
+
+  // Start the auto-advance on load
+  startAutoAdvance();
+</script>
+
+
+<script>
+    const menuToggle = document.querySelector('.toggle');
+    const showcase = document.querySelector('.showcase');
+    const menu = document.querySelector('.menu');
+    const menuLinks = document.querySelectorAll('.menu a');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      showcase.classList.toggle('active');
+      menu.classList.toggle('active');
+    });
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        showcase.classList.remove('active');
+        menu.classList.remove('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
