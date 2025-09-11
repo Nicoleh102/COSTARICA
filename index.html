@@ -201,7 +201,15 @@
       <div class="toggle"></div>
     </header>
 
-    <video src="smallheader.mp4" loop autoplay playsinline muted></video>
+   <video
+  id="bg-video"
+  src="smallheader.mp4"
+  autoplay
+  loop
+  playsinline
+  preload="auto"
+></video>
+
     <div class="overlay"></div>
     <div class="text">
       <h2>Diving In</h2>
@@ -264,29 +272,32 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("bg-video");
-
-    // Mobile detection
     const isMobile = /iPhone|iPad|iPod|Android|webOS/i.test(navigator.userAgent);
 
-    if (!isMobile) {
-      video.muted = false; // allow audio on desktop
+    if (isMobile) {
+      video.muted = true; // Required for mobile autoplay
+    } else {
+      video.muted = false; // Allow sound on desktop
       video.volume = 1.0;
     }
 
-    // Wait for the video to be ready to play
     video.addEventListener('canplaythrough', () => {
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.then(() => {
-          // Autoplay started!
-        }).catch((error) => {
-          console.warn("Autoplay failed:", error);
-        });
+        playPromise
+          .then(() => {
+            // Autoplay started
+          })
+          .catch((error) => {
+            console.warn("Autoplay failed. Muting video and retrying.", error);
+            video.muted = true;
+            video.play();
+          });
       }
     });
   });
 </script>
 
-
+  
 </body>
 </html>
