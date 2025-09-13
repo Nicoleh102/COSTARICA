@@ -44,6 +44,17 @@
       z-index: 2;
     }
 
+    .carousel-slide .slide-text {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+.carousel-slide.active .slide-text {
+  opacity: 1;
+  pointer-events: auto;
+}
+
     .overlay-blur {
       position: absolute;
       top: 0;
